@@ -45,7 +45,8 @@
  *   - 4.5: After installation setup the environment variable path.(Take screent shot and save it in Mongo-Screen-shots/TODO-4)
  *   - 4.6: copy the connection string
  *   - 4.7: open cmd and paste the connection string to establish connection with mongoDB cloud. (Take screent shot and save it in Mongo-Screen-shots/TODO-4)
- *
+ * mongodb+srv://s202323010_db_user@cluster0.xkstpfd.mongodb.net/labDB
+ * pass: j9hFIeSHtaVjFyIR
  * ============================================
  * TODO-5 Create DB & Collection
  * ============================================
@@ -185,20 +186,49 @@
  */
 
 // import mongoose
-
+import mongoose from "mongoose";
 // establish connection
-
+mongoose.connect("mongodb://s202323010_db_user:j9hFIeSHtaVjFyIR@cluster0-shard-00-00.xkstpfd.mongodb.net:27017,cluster0-shard-00-01.xkstpfd.mongodb.net:27017,cluster0-shard-00-02.xkstpfd.mongodb.net:27017/labDB?ssl=true&replicaSet=atlas-7wv91h-shard-0&authSource=admin&retryWrites=true&w=majority")
+.then(() => console.log("Connected"))
+.catch(err => console.log(err));
 
 // define schema
+const studentSchema = new mongoose.Schema({
+  name: String,
+  age: Number,
+  major: String
+});
 
+const Student = mongoose.model("Student", studentSchema);
 
 // create document
-
+async function createStudents() {
+  await Student.insertMany([
+    { name: "Ali", age: 21, major: "CS" },
+    { name: "Sara", age: 23, major: "SE" }
+  ]);
+  console.log("✅ Inserted");
+}
+createStudents();
 
 // read document
+async function readStudents() {
+  const all = await Student.find();
+  console.log(all);
+}
+readStudents();
 
 
 // update document
-
+async function updateStudent() {
+  await Student.updateOne({ name: "Ali" }, { age: 22 });
+  console.log("✅ Updated Ali");
+}
+updateStudent();
 
 // delete document
+async function deleteStudent() {
+  await Student.deleteOne({ name: "Sara" });
+  console.log("✅ Deleted Sara");
+}
+deleteStudent();
