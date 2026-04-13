@@ -188,7 +188,7 @@
 // import mongoose
 import mongoose from "mongoose";
 // establish connection
-mongoose.connect("mongodb://s202323010_db_user:j9hFIeSHtaVjFyIR@cluster0-shard-00-00.xkstpfd.mongodb.net:27017,cluster0-shard-00-01.xkstpfd.mongodb.net:27017,cluster0-shard-00-02.xkstpfd.mongodb.net:27017/labDB?ssl=true&replicaSet=atlas-7wv91h-shard-0&authSource=admin&retryWrites=true&w=majority")
+mongoose.connect("mongodb+srv://s202323010_db_user:j9hFIeSHtaVjFyIR@cluster0.xkstpfd.mongodb.net/labDB")
 .then(() => console.log("Connected"))
 .catch(err => console.log(err));
 
